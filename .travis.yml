@@ -1,0 +1,36 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t modolee/multi-docker-frontend -f ./frontend/Dockerfile.dev ./frontend
+
+script:
+  - docker run -e CI=true modolee/multi-docker-frontend npm run test -- --coverage
+
+after_success:
+  - docker build -t modolee/multi-docker-api ./api
+  - docker build -t modolee/multi-docker-frontend ./frontend
+  - docker build -t modolee/multi-docker-nginx ./nginx
+  - docker build -t modolee/multi-docker-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push modolee/multi-docker-api
+  - docker push modolee/multi-docker-frontend
+  - docker push modolee/multi-docker-nginx
+  - docker push modolee/multi-docker-worker
+
+#
+#deploy:
+#  provider: elasticbeanstalk
+#  region: "ap-northeast-2"
+#  app: "multi-docker"
+#  env: "MultiDocker-env"
+#  bucket_name: "elasticbeanstalk-ap-northeast-2-645724111390"
+#  bucket_path: "multi-docker"
+#  on:
+#    branch: master
+#  access_key_id: $AWS_ACCESS_KEY
+#  secret_access_key: $AWS_SECRET_KEY
