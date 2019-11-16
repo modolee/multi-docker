@@ -27,6 +27,7 @@ deploy:
   region: ap-northeast-2
   app: multi-docker
   env: MultiDocker-env
+  edge: true
   bucket_name: elasticbeanstalk-ap-northeast-2-645724111390
   bucket_path: multi-docker
   on:
