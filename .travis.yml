@@ -22,15 +22,14 @@ after_success:
   - docker push modolee/multi-docker-nginx
   - docker push modolee/multi-docker-worker
 
-#
-#deploy:
-#  provider: elasticbeanstalk
-#  region: "ap-northeast-2"
-#  app: "multi-docker"
-#  env: "MultiDocker-env"
-#  bucket_name: "elasticbeanstalk-ap-northeast-2-645724111390"
-#  bucket_path: "multi-docker"
-#  on:
-#    branch: master
-#  access_key_id: $AWS_ACCESS_KEY
-#  secret_access_key: $AWS_SECRET_KEY
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-northeast-2"
+  app: "multi-docker"
+  env: "MultiDocker-env"
+  bucket_name: "elasticbeanstalk-ap-northeast-2-645724111390"
+  bucket_path: "multi-docker"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
