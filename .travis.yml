@@ -1,5 +1,5 @@
-language: generic
-sudo: required
+os: linux
+language: shell
 services:
   - docker
 
@@ -27,7 +27,7 @@ deploy:
   region: "ap-northeast-2"
   app: "multi-docker"
   env: "MultiDocker-env"
-  bucket_name: "elasticbeanstalk-ap-northeast-2-645724111390"
+  bucket: "elasticbeanstalk-ap-northeast-2-645724111390"
   bucket_path: "multi-docker"
   on:
     branch: master
